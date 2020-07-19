@@ -48,6 +48,7 @@ export class SubmitOrderComponent implements OnInit {
   createOrder($event){
     if (this.orderDetailsDatasource.length > 0){
       this.oService.addNewOrder(this.productNames, this.totalPrice);
+      alert("Order successfully created!");
     }
     else{
       alert("Add at least one item in the order!");

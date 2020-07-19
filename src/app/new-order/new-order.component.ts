@@ -47,6 +47,7 @@ export class NewOrderComponent implements OnInit {
 
   addNewItem($event){
     this.oService.addNewOrderDetail(this.selectedProduct, this.totalPrice);
+    alert("Item was added to the order!");
   }
 
 }
