@@ -1,0 +1,17 @@
+<mat-tab-group (selectedTabChange)="updateDatasources($event)">
+  <mat-tab label="Making an order">
+    <div class="basic-container">
+      <app-new-order></app-new-order> 
+    </div>
+  </mat-tab>
+  <mat-tab label="Order">
+    <div class="basic-container">
+      <app-submit-order></app-submit-order> 
+    </div>
+  </mat-tab>
+  <mat-tab label="Orders approve for shipment"> 
+    <div class="basic-container">
+      <app-approve-order></app-approve-order> 
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,19 @@
+<table #ordersTable mat-table [dataSource]="ordersDatasource" class="mat-elevation-z8">  
+    <ng-container matColumnDef="orderNum">
+      <th mat-header-cell *matHeaderCellDef> Order Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.orderNum}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="productNames">
+      <th mat-header-cell *matHeaderCellDef> Products </th>
+      <td mat-cell *matCellDef="let element"> {{element.productNames}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="totalPrice">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.totalPrice}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

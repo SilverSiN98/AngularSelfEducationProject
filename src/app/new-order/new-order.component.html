@@ -1,0 +1,31 @@
+<mat-form-field appearance="fill">
+    <mat-label>Product for order</mat-label>
+    <mat-select [(ngModel)]="selectedProductId" (selectionChange)="recalculateTotalPrice($event)">
+        <mat-option *ngFor="let product of products" [value]="product.id">
+            {{product.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Product Price</mat-label>
+    <input matInput disabled placeholder="Product Price" value="{{selectedPrice}}">
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Discount Amount</mat-label>
+    <input matInput [formControl]="numFormControl" placeholder="Discount Amount" [(ngModel)]="discountAmount" (change)="recalculateTotalPrice($event)">
+    <mat-error *ngIf="numFormControl.hasError('pattern')">
+        Please enter a valid number
+    </mat-error>
+    <mat-error *ngIf="numFormControl.hasError('required')">
+        Discount Amount is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Total Price</mat-label>
+    <input matInput disabled placeholder="Total Price" value="{{totalPrice}}">
+</mat-form-field>
+<br>
+<button mat-raised-button color="primary" (click)="addNewItem($event)">Add</button>

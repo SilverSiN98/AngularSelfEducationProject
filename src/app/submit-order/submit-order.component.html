@@ -1,0 +1,45 @@
+<table #orderDetailsTable mat-table [dataSource]="orderDetailsDatasource" class="mat-elevation-z8">  
+    <ng-container matColumnDef="itemNum">
+      <th mat-header-cell *matHeaderCellDef> Item Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.itemNum}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef> Product Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="totalPrice">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.totalPrice}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="removeBtn">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-icon-button color="primary" (click)="removeItem($event, element)">
+                <mat-icon>delete</mat-icon>
+            </button>  
+        </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-form-field>
+    <mat-label>Total Price</mat-label>
+    <input matInput disabled placeholder="Total Price" value="{{totalPrice}}">
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Products Count</mat-label>
+    <input matInput disabled placeholder="Products Count" value="{{totalCount}}">
+</mat-form-field>
+<br>
+<mat-form-field>
+    <mat-label>Products</mat-label>
+    <textarea matInput disabled placeholder="Products" value="{{productNames}}"></textarea>
+</mat-form-field>
+<br>
+<button mat-raised-button color="primary" (click)="createOrder($event)">Create Order</button>
