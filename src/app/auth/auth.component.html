@@ -1,0 +1,25 @@
+<div *ngIf="!isLoggedIn; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="loginFormControl" [(ngModel)]="email">
+        <mat-error *ngIf="loginFormControl.hasError('required')">
+            Email is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [formControl]="loginFormControl" [(ngModel)]="password">
+        <mat-error *ngIf="loginFormControl.hasError('required')">
+            Password is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)="login($event)">Log In</button>
+</ng-template>
+<ng-template #elseBlock>
+    <h4>You logged in as {{userName}}.</h4>
+    <br>
+    <button mat-raised-button color="primary" (click)="logout($event)">Log Out</button>
+</ng-template>

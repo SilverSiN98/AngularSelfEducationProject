@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { OrderService } from './../order.service'
+import { OrderApiService } from './../order-api.service'
 
 @Component({
   selector: 'app-new-order',
@@ -22,10 +23,13 @@ export class NewOrderComponent implements OnInit {
 
   products;
 
-  constructor(private oService: OrderService) { }
+  constructor(private oService: OrderApiService) { }
 
   ngOnInit(): void {
-    this.products = this.oService.getAvailableProducts();
+    this.oService.getAvailableProducts().subscribe((data) => {
+      this.products = Array.from(Object.keys(data), k => data[k]);
+      console.log(this.products);
+   });
   }
 
   recalculateTotalPrice($event){
@@ -46,8 +50,15 @@ export class NewOrderComponent implements OnInit {
   }
 
   addNewItem($event){
-    this.oService.addNewOrderDetail(this.selectedProduct, this.totalPrice);
-    alert("Item was added to the order!");
+    this.oService.addNewOrderDetail(this.selectedProductId, this.totalPrice)
+    .subscribe(data => {
+      if (data)
+        alert("Item was added to the order!");
+      else
+        alert("Something went wrong...\nSee log file for more information");
+    }, error => {
+      alert("Something went wrong...\n" + error);
+    });
   }
 
 }

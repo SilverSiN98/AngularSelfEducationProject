@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderService } from './../order.service'
+import { OrderApiService } from './../order-api.service'
 import { MatTable } from '@angular/material/table';
 
 @Component({
@@ -12,18 +13,20 @@ export class ApproveOrderComponent implements OnInit {
   @ViewChild(MatTable) orderDetailsTable: MatTable<any>;
 
   displayedColumns: string[] = ['orderNum', 'productNames', 'totalPrice'];
-  ordersDatasource;
+  ordersDatasource: any[] = [];
 
-  constructor(private oService: OrderService) { }
+  constructor(private oService: OrderApiService) { }
 
   ngOnInit(): void {
     this.updateOrdersTable(false);
   }
 
   updateOrdersTable(updateRows: boolean = true){
-    this.ordersDatasource = this.oService.getAllOrders();
-    if (updateRows)
-      this.orderDetailsTable.renderRows();
+    this.oService.getAllOrders().subscribe((data) => {
+      this.ordersDatasource = Array.from(Object.keys(data), k => data[k]);
+      if (updateRows)
+        this.orderDetailsTable.renderRows();
+   });
   }
 
 }
